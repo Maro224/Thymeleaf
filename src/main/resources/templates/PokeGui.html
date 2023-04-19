@@ -13,19 +13,12 @@
 <!--<img class="img-thumbnail" th:src="${img}"/><br>-->
 <!--<td class="" th:text="${catFact.getText()}"/><br>-->
 
-<!--<form th:action="@{/search}" th:object="${pokemon}" th:method="post">
-    <select th:class="form-control" th:object="${pokemon}" id="dropDownList">
-        <option th:value="0">select pokemon</option>
-        <option th:each="option: ${options}" th:value="${option}" th:text="${option}"></option>
+<form th:action="@{/search}" method="post" th:object="${name}">
+    <select th:field="*{name}">
+        <option value="">Select a pokemon</option>
+        <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
     </select>
-<p><input type="submit" value="search"></p>
-</form>-->
-<form th:action="@{/search}" method="post">
-    <select class="form-control" id="dropDownList" name="pokemon">
-        <option value="0">select pokemon</option>
-        <option th:each="option: ${options}" th:value="${option}" th:text="${option}"></option>
-    </select>
-    <p><input type="submit" value="search"></p>
+    <button type="submit">Search</button>
 </form>
 </body>
 </html>

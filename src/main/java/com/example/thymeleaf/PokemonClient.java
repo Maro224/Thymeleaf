@@ -21,6 +21,6 @@ public class PokemonClient {
         return exchange.getBody().getData();
     }
     public Datum getOnePokemon(String name, Integer i){
-        return getPokemon(name).get(i);
+        return getPokemon(name.substring(0,1).toUpperCase() + name.substring(1)).get(i);
     }
 }
