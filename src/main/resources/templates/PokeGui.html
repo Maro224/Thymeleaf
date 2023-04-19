@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<h1>Thymeleaf</h1>
+<!--<img class="img-thumbnail" th:src="${img}"/><br>-->
+<!--<td class="" th:text="${catFact.getText()}"/><br>-->
+
+<!--<form th:action="@{/search}" th:object="${pokemon}" th:method="post">
+    <select th:class="form-control" th:object="${pokemon}" id="dropDownList">
+        <option th:value="0">select pokemon</option>
+        <option th:each="option: ${options}" th:value="${option}" th:text="${option}"></option>
+    </select>
+<p><input type="submit" value="search"></p>
+</form>-->
+<form th:action="@{/search}" method="post">
+    <select class="form-control" id="dropDownList" name="pokemon">
+        <option value="0">select pokemon</option>
+        <option th:each="option: ${options}" th:value="${option}" th:text="${option}"></option>
+    </select>
+    <p><input type="submit" value="search"></p>
+</form>
+</body>
+</html>
