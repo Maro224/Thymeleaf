@@ -23,32 +23,21 @@ public class PokemonController {
             .map(x -> x.toString())
             .map(x -> x.substring(0, 1).toUpperCase() + x.substring(1).toLowerCase())
             .collect(Collectors.toList());
-    List<Datum> pokemonList;
+    List<Datum> pokemonList = new ArrayList<>();
     @GetMapping("/pokemon")
     public String getPokemon(Model model) {
-        model.addAttribute("options", result);
-        pokemonList = new ArrayList<>();
         model.addAttribute("pokemonList", pokemonList);
-//        model.addAttribute("name", new Datum());
+        model.addAttribute("options", result);
         return "pokegui";
     }
-   /* @PostMapping("/search")
-    public String searchPokemon(@ModelAttribute("name") String name, Model model){
-        pokemonclient = new PokemonClient();
-        Datum dat = pokemonclient.getOnePokemon(name*//*.getName()*//*, 1);
-        model.addAttribute("pokemonInstance", dat);
-        return "showpokemon";
-    }*/
     @PostMapping("/search")
-    public String searchPokemon(@RequestParam() String name, Model model){
+    public String searchPokemon(@RequestParam() String name){
         pokemonclient = new PokemonClient();
         Datum dat = pokemonclient.getOnePokemon(name, 1);
-        System.out.println(dat.getAttacks());
-        model.addAttribute("options", result);
-//        List<Datum> pokemonList = (List<Datum>) model.getAttribute("pokemonList");
+        result.remove(name);
         pokemonList.add(dat);
-        model.addAttribute("pokemonList", pokemonList);
-        return "pokegui";
+//        return String.format("redirect:show/%s", name);
+        return "redirect:pokemon";
     }
 
 }

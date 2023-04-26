@@ -38,7 +38,10 @@
                 </div>
             </th>
             <th scope="col">Type</th>
-            <th scope="col" colspan="2">Attacks</th>
+            <th scope="col" colspan="2" ><div class=" justify-content-between align-center">
+                <span>Attacks</span>
+            </div>
+            </th>
         </tr>
         </thead>
         <tbody id="pokemonTableBody">
@@ -46,9 +49,9 @@
             <th scope="row" th:text="${pokemonInstance?.getName()}"></th>
             <td><img th:src="${pokemonInstance?.getImages()?.getSmall()}" class="img-fluid"></td>
             <td th:text="${pokemonInstance?.getTypes()?.get(0)}"></td>
-            <td th:text="${pokemonInstance?.getAttacks().get(0).getName()}"></td>
-            <td th:text="${pokemonInstance?.getAttacks().get(0).getDamage()}"></td>
-            <td th:text="${pokemonInstance?.getAttacks().get(0).getDamage()}"></td>
+            <td th:text="${pokemonInstance?.getAttacks()?.get(0).getName()}"></td>
+            <td th:text="${pokemonInstance?.getAttacks()?.get(0).getDamage()}"></td>
+            <td th:text="${pokemonInstance?.getAttacks()?.get(0).getDamage()}"></td>
         </tr>
         </tbody>
     </table>
