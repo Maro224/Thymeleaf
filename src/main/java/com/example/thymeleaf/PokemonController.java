@@ -24,6 +24,7 @@ public class PokemonController {
             .map(x -> x.substring(0, 1).toUpperCase() + x.substring(1).toLowerCase())
             .collect(Collectors.toList());
     List<Datum> pokemonList = new ArrayList<>();
+
     @GetMapping("/pokemon")
     public String getPokemon(Model model) {
         model.addAttribute("pokemonList", pokemonList);
@@ -34,6 +35,7 @@ public class PokemonController {
     public String searchPokemon(@RequestParam() String name){
         pokemonclient = new PokemonClient();
         Datum dat = pokemonclient.getOnePokemon(name, 1);
+        System.out.println(dat);
         result.remove(name);
         pokemonList.add(dat);
 //        return String.format("redirect:show/%s", name);

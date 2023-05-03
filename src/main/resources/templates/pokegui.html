@@ -25,33 +25,81 @@
 </form>
 <h2>Build your Pokemon Deck</h2>
 <div class="table-responsive-md">
+<!--    <table class="table table-striped">-->
+<!--        <thead class="table-dark">-->
+<!--        <tr>-->
+<!--            <th scope="col">-->
+<!--            <div class="d-flex justify-content-between align-items-center">-->
+<!--                <span>Card</span>-->
+<!--                <button type="button" class="btn btn-outline-light" onclick="toggleColumnVisibility(0); this.blur()">-->
+<!--                    <span id="toggleButton">Hide</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </th>-->
+<!--            <th scope="col">Type</th>-->
+<!--            <th>Attack</th>-->
+<!--            <th>Cost</th>-->
+<!--            <th>Damage</th>-->
+<!--            <th>Text</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody id="pokemonTableBody">-->
+<!--        <tr th:each="pokemonInstance : ${pokemonList}">-->
+<!--            <td rowspan="2"><img th:src="${pokemonInstance?.getImages()?.getSmall()}" class="img-fluid"></td>-->
+<!--&lt;!&ndash;            <td rowspan="2" th:text="${pokemonInstance?.getName()}"></td>&ndash;&gt;-->
+<!--            <td rowspan="2" th:text="${pokemonInstance?.getTypes()?.get(0)}"></td>-->
+<!--            <td colspan="2">-->
+<!--                <table class="table table-striped">-->
+<!--                    <tr th:each="attack : ${pokemonInstance?.getAttacks()}">-->
+<!--                        <td th:text="${attack != null ? attack.getName() : 'No Attack Available'}"></td>-->
+<!--                        <td th:text="${attack != null ? attack.getCost() : 'No Attack Available'}"></td>-->
+<!--                        <td th:text="${attack != null ? attack.getDamage() : 'No Attack Available'}"></td>-->
+<!--                        <td th:text="${attack != null ? attack.getText() : 'No Text'}"></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
     <table class="table table-striped">
         <thead class="table-dark">
         <tr>
-            <th scope="col">Name</th>
-            <th scope="col">
-                <div class="d-flex justify-content-between align-items-center">
-                    <span>Card</span>
-                    <button type="button" class="btn btn-outline-light" onclick="toggleColumnVisibility(1); this.blur()">
-                        <span id="toggleButton">Hide</span>
-                    </button>
-                </div>
-            </th>
+            <th scope="col">Card</th>
             <th scope="col">Type</th>
-            <th scope="col" colspan="2" ><div class=" justify-content-between align-center">
-                <span>Attacks</span>
-            </div>
-            </th>
+            <th scope="col">Attack</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Damage</th>
+            <th scope="col">Text</th>
         </tr>
         </thead>
-        <tbody id="pokemonTableBody">
+        <tbody>
         <tr th:each="pokemonInstance : ${pokemonList}">
-            <th scope="row" th:text="${pokemonInstance?.getName()}"></th>
-            <td><img th:src="${pokemonInstance?.getImages()?.getSmall()}" class="img-fluid"></td>
+            <td>
+                <div class="card" style="width: 18rem;">
+                    <img th:src="${pokemonInstance?.getImages()?.getSmall()}" class="card-img-top">
+                </div>
+            </td>
             <td th:text="${pokemonInstance?.getTypes()?.get(0)}"></td>
-            <td th:text="${pokemonInstance?.getAttacks()?.get(0).getName()}"></td>
-            <td th:text="${pokemonInstance?.getAttacks()?.get(0).getDamage()}"></td>
-            <td th:text="${pokemonInstance?.getAttacks()?.get(0).getDamage()}"></td>
+            <td>
+                <ul>
+                    <li th:each="attack : ${pokemonInstance?.getAttacks()}" th:text="${attack != null ? attack.getName() : 'No Attack Available'}"></li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="attack : ${pokemonInstance?.getAttacks()}" th:text="${attack != null ? attack.getCost() : 'No Attack Available'}"></li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="attack : ${pokemonInstance?.getAttacks()}" th:text="${attack != null ? attack.getDamage() : 'No Attack Available'}"></li>
+                </ul>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="attack : ${pokemonInstance?.getAttacks()}" th:text="${attack != null ? attack.getText() : 'No Text'}"></li>
+                </ul>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -61,12 +109,16 @@
     function toggleColumnVisibility(index) {
         var table = document.querySelector('.table');
         var hideButton = document.querySelector('#toggleButton');
-        var isHidden = table.rows[1].cells[index].style.display === 'none';
+        var isHidden = table.rows[1].cells[index].querySelector('img').style.display === 'none';
+
         for (var i = 0, row; row = table.rows[i]; i++) {
             if (i === 0) {
                 row.cells[index].style.display = ''; // show header cell
             } else {
-                row.cells[index].style.display = isHidden ? '' : 'none'; // hide/show data cells
+                var img = row.cells[index].querySelector('img');
+                if (img) {
+                    img.style.display = isHidden ? '' : 'none'; // hide/show image
+                }
             }
         }
         hideButton.textContent = isHidden ? 'Hide' : 'Show';
